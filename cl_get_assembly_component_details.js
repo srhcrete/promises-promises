@@ -12,31 +12,34 @@
       }).then(function(result){
         var itemDetailsObj = new Object();
         var assembly = result;
-        //get sublist line number
-        var numLines = assembly.getLineCount({
-           sublistId : 'component'
-        });
-        if (numLines > 0) {
-          for (var i = 0; i < numLines; i++) {
-            itemDetailsObj.component = assembly.getSublistValue({
-               sublistId : 'component',
-               fieldId : 'component',
-               line : i
-            });
-            itemDetailsObj.quantity = assembly.getSublistValue({
-               sublistId : 'component',
-               fieldId : 'quantity',
-               line : i
-            });
-            itemDetailsObj.quantityonhand = assembly.getSublistValue({
-               sublistId : 'component',
-               fieldId : 'quantityonhand',
-               line : i
-            });
-            console.log('assembly item' + i + 'details', itemDetailsObj);
-          }
-        }
+        logAssemblySublist(assembly);
+    }
+
+    function logAssemblySublist(assembly) {
+      var numLines = assembly.getLineCount({
+         sublistId : 'component'
       });
+      if (numLines > 0) {
+        for (var i = 0; i < numLines; i++) {
+          itemDetailsObj.component = assembly.getSublistValue({
+             sublistId : 'component',
+             fieldId : 'component',
+             line : i
+          });
+          itemDetailsObj.quantity = assembly.getSublistValue({
+             sublistId : 'component',
+             fieldId : 'quantity',
+             line : i
+          });
+          itemDetailsObj.quantityonhand = assembly.getSublistValue({
+             sublistId : 'component',
+             fieldId : 'quantityonhand',
+             line : i
+          });
+          console.log('assembly item' + i + 'details', itemDetailsObj);
+        }
+      }
+    });
     }
 
     function isE04I(item) {
